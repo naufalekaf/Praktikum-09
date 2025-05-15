@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman Game</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .container{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            height: 100vh;
+            background-color: lightblue;
+        }
+        .hang-img{
+            text-align: center;
+        }
+        .content{
+            width: 50%;
+            text-align: center;
+        }
+        .soal{
+            font-size: 3em;
+            letter-spacing: 10px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .input-box{
+            margin: 20px 0;
+        }
+        input[type="text"] {
+            padding: 5px;
+            font-size: 1em;
+            width: 25px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        button {
+            padding: 5px 15px;
+            font-size: 1em;
+            border: 1px solid black;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+        .nyawa{
+            font-weight: bold;
+        }
+        .status{
+            margin: 5px 0;
+            font-size: 2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hang-img">
+            <img src="img/10.jpg" alt="Hangman" id="hangman-img" class="hangman-img">
+            <p class="nyawa">Lives: <span id="nyawa" class="nyawa">10</span></p>
+        </div>
+        <div class="content">
+            <div id="soal" class="soal">_ _ _ _ _</div>
+            <p id="clue" class="clue"></p>
+                
+            <div class="input-box">
+                <input type="text" id="huruf" maxlength="1">
+                <button onclick="checkAnswer()">Check</button>
+            </div>
+            <p class="status" id="status"></p>
+        </div>
+    </div>
+
+    <script>
+        var answer = "";
+        var answer_ = "";
+        var lives = 10;
+        let answers = ["PYTHON", "JAVASCRIPT", "TAILWIND", "REACT", "LARAVEL"];
+        let clues = [
+            "A versatile programming language named after a snake, loved for its simplicity.",
+            "The language that brings interactivity to websites, often abbreviated as JS.",
+            "A utility-first CSS framework for rapidly building custom designs.",
+            "A JavaScript library for building dynamic user interfaces, created by Facebook.",
+            "A PHP framework known for elegant syntax and robust web development tools."
+        ];
+
+        window.onload = function(){
+            generate();
+        }
+        
+        function generate(){
+            let random_idx = Math.floor(Math.random() * answers.length);
+            answer = answers[random_idx];
+            document.getElementById("clue").innerHTML = clues[random_idx];
+            answer_ = "_".repeat(answer.length);
+            console.log (answer_);
+
+            updateSoal();
+        }
+
+        function updateSoal(){
+            document.getElementById("soal").innerHTML = answer_.split("").join(" ");
+        }
+
+        function checkAnswer(){
+            let huruf = document.getElementById("huruf");
+            let tebak = huruf.value.toUpperCase();
+
+            huruf.value = '';
+            huruf.focus();
+
+            if (answer.includes(tebak)) {
+                let newAnswer_ = "";
+                for (let i = 0; i < answer.length; i++) {
+                    if (answer[i] === tebak) {
+                        newAnswer_ += tebak;
+                    } else {
+                        newAnswer_ += answer_[i];
+                    }
+                }
+                answer_ = newAnswer_;
+                updateSoal();
+            } else {
+                lives--;
+                document.getElementById("nyawa").innerHTML = lives;
+                document.getElementById("hangman-img").src = `img/${lives}.jpg`;
+            }
+            checkWin();
+        }
+
+        function checkWin() {
+            console.log(answer_)
+            if (!answer_.includes("_")) {
+                document.getElementById("status").innerHTML = "Kamu Menang!!";
+                document.getElementById("status").style.color = "green";
+                document.getElementById('huruf').disabled = true;
+            } else if (lives <= 0) {
+                document.getElementById("status").innerHTML = "Kamu Kalah!!";
+                document.getElementById("status").style.color = "red";
+                document.getElementById('huruf').disabled = true;
+            }
+        }
+    </script>
+</body>
+</html>

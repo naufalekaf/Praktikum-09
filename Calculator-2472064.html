@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .content{
+            background-color: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+        }
+        .pengurangan{
+            margin: 10px 0;
+        }
+        .judul{
+            font-weight: bold;
+            text-decoration: underline;
+            margin: 0 0 5px;
+        }
+        .refresh{
+            padding: 3px 10px;
+            margin: 0 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="operasi">
+                <p class="judul">Penjumlahan</p>
+                <input type="button" value="Refresh" class="refresh" onclick="penjumlahan()">
+                <div class="input-box">
+                    <input type="text" id="jml-angka1" readonly> + <input type="text" id="jml-angka2" readonly> = <input type="text" id="jawab-jml"> <input type="button" value="Cek Hasil" onclick="cek_jml()">
+                </div>
+                <p class="hasil" id="hasil-jml"></p>
+            </div>
+            <div class="operasi pengurangan">
+                <p class="judul">Pengurangan</p>
+                <input type="button" value="Refresh" class="refresh" onclick="pengurangan()">
+                <div class="input-box">
+                    <input type="text" id="kur-angka1"readonly> + <input type="text" id="kur-angka2"readonly> = <input type="text" id="jawab-kur"> <input type="button" value="Cek Hasil" onclick="cek_kur()">
+                </div>
+                <p class="hasil" id="hasil-kur"></p>
+            </div>
+            <div class="operasi">
+                <p class="judul">Nilai bilangan</p>
+                <input type="button" value="Refresh" class="refresh" onclick="bil_rdm()">
+                <div class="input-box">
+                    <input type="text" id="bil" readonly> = <input type="text" id="ratusan"> + <input type="text" id="puluhan"> + <input type="text" id="satuan"> <input type="button" value="Cek Hasil" onclick="cek_bil()">
+                </div>
+                <p class="hasil" id="hasil-rat"></p>
+                <p class="hasil" id="hasil-pul"></p>
+                <p class="hasil" id="hasil-sat"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let jml_1 = document.getElementById("jml-angka1")
+        let jml_2 = document.getElementById("jml-angka2")
+        let hasil_jml = document.getElementById("hasil-jml")
+        
+        function penjumlahan(){
+            a = Math.floor(Math.random() * 1000)
+            b = Math.floor(Math.random() * 1000)
+            jml_1.value = a
+            jml_2.value = b
+
+        };
+        function cek_jml(){
+            let jawab_jml = document.getElementById("jawab-jml").value
+            let soal_jml = parseInt(jml_1.value) + parseInt(jml_2.value)
+            if (soal_jml == jawab_jml){
+                hasil_jml.innerHTML = "Jawaban Benar!!!"
+            }else if (jawab_jml == ""){
+                hasil_jml.innerHTML = "Tidak Ada Jawaban, Harus Isi Dulu!!"
+            }else{
+                hasil_jml.innerHTML = "Jawaban Salah!!!"
+            }
+        };
+
+        let kur_1 = document.getElementById("kur-angka1")
+        let kur_2 = document.getElementById("kur-angka2")
+        let hasil_kur = document.getElementById("hasil-kur")
+        
+        function pengurangan(){
+            c = Math.floor(Math.random() * 1000)
+            d = Math.floor(Math.random() * 1000)
+            while(c <= d){
+                c = Math.floor(Math.random() * 1000)
+                d = Math.floor(Math.random() * 1000)
+            }
+            kur_1.value = c
+            kur_2.value = d
+
+        };
+        
+        function cek_kur(){
+            let jawab_kur = document.getElementById("jawab-kur").value
+            let soal_kur = parseInt(kur_1.value) - parseInt(kur_2.value)
+            console.log (soal_kur)
+            console.log (jawab_kur)
+            if (soal_kur == jawab_kur){
+                hasil_kur.innerHTML = "Jawaban Benar!!!"
+            }else if (jawab_kur == ""){
+                hasil_kur.innerHTML = "Tidak Ada Jawaban, Harus Isi Dulu!!"
+            }else{
+                hasil_kur.innerHTML = "Jawaban Salah!!!"
+            }
+        };
+
+        let bil = document.getElementById("bil")
+        let hasil_rat = document.getElementById("hasil-rat")
+        let hasil_pul = document.getElementById("hasil-pul")
+        let hasil_sat = document.getElementById("hasil-sat")
+
+        function bil_rdm(){
+            e = Math.floor(Math.random() * 1000)
+            bil.value = e
+        }
+
+        function cek_bil(){
+            let ratusan = document.getElementById("ratusan").value
+            let puluhan = document.getElementById("puluhan").value
+            let satuan = document.getElementById("satuan").value
+            rat = Math.floor((bil.value / 100)) * 100
+            sisa = bil.value - rat
+            pul = Math.floor((sisa / 10)) * 10
+            sat = sisa - pul
+
+            if (ratusan == rat){
+                hasil_rat.innerHTML = "Jawaban Benar!!!"
+            }else if (ratusan == ""){
+                hasil_rat.innerHTML = "Tidak Ada Jawaban, Harus Isi Dulu!!"
+            }else{
+                hasil_rat.innerHTML = "Jawaban Salah!!!"
+            }
+
+            if (puluhan == pul){
+                hasil_pul.innerHTML = "Jawaban Benar!!!"
+            }else if (puluhan == ""){
+        pul.innerHTML = "Tidak Ada Jawaban, Harus Isi Dulu!!"
+            }else{
+                hasil_pul.innerHTML = "Jawaban Salah!!!"
+            }
+
+            if (satuan == sat){
+                hasil_sat.innerHTML = "Jawaban Benar!!!"
+            }else if (satuan == ""){
+                hasil_sat.innerHTML = "Tidak Ada Jawaban, Harus Isi Dulu!!"
+            }else{
+                hasil_sat.innerHTML = "Jawaban Salah!!!"
+            }
+
+            console.log(rat)
+            console.log(pul)
+            console.log(sat)
+            console.log(ratusan)
+            console.log(puluhan)
+            console.log(satuan)
+        }
+    </script>
+</body>
+</html>
