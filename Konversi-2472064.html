@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tukar</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body{
+            background-color: #555;
+        }
+        .container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .content{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            width: 30%;
+            text-align: center;
+            padding: 25px;
+            border-radius: 20px;
+        }
+        h2{
+            color: #333;
+        }
+        .title{
+            color:#555;
+            margin: 10px 0 ;
+        }
+        .inp{
+            width: 100%;
+            padding: 5px;
+            border-radius: 7px;
+            border: 1px solid #555;
+        }
+        .tukar{
+            padding: 10px 15px;
+            background-color: #2575fc;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            margin: 10px 0 ;
+            border-radius: 5px;
+        }
+        #tukar{
+            padding: 10px 15px;
+            background-color: #2575fc;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            margin: 10px 0 ;
+            border-radius: 5px;
+            width: 100%;
+        }
+        #ubah{
+            color:#2575fc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h2> Konverter Mata Uang</h1>
+            <p class="title">Jumlah Uang</p>
+            <input type="text" placeholder="Jumlah Uang" class="inp" id="nominal">
+            <p class="title">Dari Mata Uang</p>
+            <select name="dari" id="dari" class="inp">
+                <option value="1">USD - Dollar Amerika</option>
+                <option value="2">IDR - Rupiah Indonesia</option>
+                <option value="3">EUR - Euro</option>
+                <option value="4">JPY - Yen Japan</option>
+                <option value="5">GBP - Pound Inggris</option>
+                <option value="6">SGD - Dollar Singapura</option>
+                <option value="7">AUD - Dollar Australia</option>
+            </select>
+            <div class="tukar">
+                <p>Tukar Mata Uang</p>
+            </div>
+            <p class="title">Ke Mata Uang</p>
+            <select name="ke" id="ke" class="inp">
+                <option value="1">USD - Dollar Amerika</option>
+                <option value="2">IDR - Rupiah Indonesia</option>
+                <option value="3">EUR - Euro</option>
+                <option value="4">JPY - Yen Japan</option>
+                <option value="5">GBP - Pound Inggris</option>
+                <option value="6">SGD - Dollar Singapura</option>
+                <option value="7">AUD - Dollar Australia</option>
+            </select>
+            <input type="button" value="tukar" id="tukar" onclick="konversi()">
+            <h1 id="ubah"></h1>
+        </div>
+    </div>
+
+    <script>
+        function konversi(){
+            let ubah = document.getElementById("ubah");
+            let nominal = document.getElementById("nominal").value;
+            let dari = document.getElementById("dari").value;
+            let ke = document.getElementById("ke").value;
+            let nilai;
+            let hasil;
+            let kode;
+            
+            if (dari == 1){
+                nilai = 16500
+                kode1 = "USD"
+            }else if (dari == 2){
+                nilai = 1
+                kode1 = "IDR"
+            }else if (dari == 3){
+                nilai = 18500 
+                kode1 = "EUR"
+            }else if (dari == 4){
+                nilai = 165
+                kode1 = "JPY"
+            }else if (dari == 5){
+                nilai = 22000
+                kode1 = "GBP"
+            }else if (dari == 6){
+                nilai = 12750
+                kode1 = "SGD"
+            }else if (dari == 7){
+                nilai = 10500
+                kode1 = "AUD"
+            }
+
+            nilai *= nominal
+
+            if (ke == 1){
+                hasil = nilai/16500
+                kode2 = "USD"
+            }else if (ke == 2){
+                hasil = nilai
+                kode2 = "IDR"
+            }else if (ke == 3){
+                hasil = nilai/18500 
+                kode2 = "EUR"
+            }else if (ke == 4){
+                hasil = nilai/165
+                kode2 = "JPY"
+            }else if (ke == 5){
+                hasil = nilai/22000
+                kode2 = "GBP"
+            }else if (ke == 6){
+                hasil = nilai/12750
+                kode2 = "SGD"
+            }else if (ke == 7){
+                hasil = nilai/10500
+                kode2 = "AUD"
+            }
+
+            hasil = Math.round(hasil * 100)/100;
+            ubah.innerHTML = nominal+" "+kode1+" = "+ hasil+" "+kode2
+        }
+
+    </script>
+</body>
+</html>
